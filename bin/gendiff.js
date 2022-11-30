@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
+import { file1, file2 } from '../src/files-compare.js';
+import _ from 'lodash';
 
 program
   .version("1.0.0")
@@ -10,3 +12,4 @@ program
   .arguments('<filepath1> <filepath2>');
 
 program.parse();
+
