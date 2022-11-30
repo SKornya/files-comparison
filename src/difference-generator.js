@@ -14,7 +14,7 @@ export default (path1, path2) => {
   const [keys1, keys2] = keys;
 
   const intersectKeys = _.intersection(keys1, keys2);
-  const unionKeys = _.union(keys1, keys2).sort();
+  const unionKeys = _.sortBy(_.union(keys1, keys2));
 
   const getDiff = unionKeys.reduce((acc, key) => {
     if (intersectKeys.includes(key)) {
