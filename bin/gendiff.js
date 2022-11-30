@@ -12,3 +12,5 @@ program
   .action((path1, path2) => console.log(genDiff(path1, path2)));
 
 program.parse();
+
+export default genDiff;
