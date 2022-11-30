@@ -14,21 +14,23 @@ export const file2 = {
   "abc": "tree",
 };
 
-const files = [file1, file2];
-const keys = files.map((file) => Object.keys(file));
-const [keys1, keys2] = keys;
+export const genDiff = (file1, file2) => {
 
-const intersectKeys = _.intersection(keys1, keys2);
-const unionKeys = _.union(keys1, keys2).sort();
+  const files = [file1, file2];
+  const keys = files.map((file) => Object.keys(file));
+  const [keys1, keys2] = keys;
 
-const getDiff = unionKeys.reduce((acc, key) => {
-  if (intersectKeys.includes(key)) {
-    return file1[key] === file2[key] ? `${acc}     ${key}: ${file1[key]}\n` : `${acc}   - ${key}: ${file1[key]}\n   + ${key}: ${file2[key]}\n`;
-  } else {
-    return keys1.includes(key) ? `${acc}   - ${key}: ${file1[key]}\n` : `${acc}   + ${key}: ${file2[key]}\n`;
-  }
-}, '')
+  const intersectKeys = _.intersection(keys1, keys2);
+  const unionKeys = _.union(keys1, keys2).sort();
 
-const diff = `{\n${getDiff}}`;
+  const getDiff = unionKeys.reduce((acc, key) => {
+    if (intersectKeys.includes(key)) {
+      return file1[key] === file2[key] ? `${acc}     ${key}: ${file1[key]}\n` : `${acc}   - ${key}: ${file1[key]}\n   + ${key}: ${file2[key]}\n`;
+    } else {
+      return keys1.includes(key) ? `${acc}   - ${key}: ${file1[key]}\n` : `${acc}   + ${key}: ${file2[key]}\n`;
+    }
+  }, '')
 
-console.log(diff);
+  const diff = `{\n${getDiff}}`;
+  return diff;
+};
