@@ -18,11 +18,11 @@ export default (path1, path2) => {
 
   const getDiff = unionKeys.reduce((acc, key) => {
     if (intersectKeys.includes(key)) {
-      return file1[key] === file2[key] 
+      return file1[key] === file2[key]
         ? `${acc}     ${key}: ${file1[key]}\n`
         : `${acc}   - ${key}: ${file1[key]}\n   + ${key}: ${file2[key]}\n`;
     }
-    return keys1.includes(key) 
+    return keys1.includes(key)
       ? `${acc}   - ${key}: ${file1[key]}\n`
       : `${acc}   + ${key}: ${file2[key]}\n`;
   }, '');
