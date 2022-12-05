@@ -1,13 +1,20 @@
 import _ from 'lodash';
 import fs from 'fs';
 import yaml from 'yaml-js';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
 
-const parseJSONFromPath = (path) => JSON.parse(fs.readFileSync(path));
-const parseYMLFromPath = (path) => yaml.load(fs.readFileSync(path)); // for yml files parse later
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const parseJSONFromPath = (filePath) => JSON.parse(fs.readFileSync(filePath));
+const parseYMLFromPath = (filePath) => yaml.load(fs.readFileSync(filePath)); // for yaml
+
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 export default (path1, path2) => {
-  const parsedFiles = [path1, path2]
-    .map((path) => (_.last(path.split('.')) === 'json' ? parseJSONFromPath(path) : parseYMLFromPath(path)));
+  const parsedFiles = [getFixturePath(path1), getFixturePath(path2)]
+    .map((filePath) => (_.last(filePath.split('.')) === 'json' ? parseJSONFromPath(filePath) : parseYMLFromPath(filePath)));
 
   const [file1, file2] = parsedFiles;
   const keys = parsedFiles.map((file) => Object.keys(file));
