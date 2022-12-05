@@ -1,9 +1,16 @@
 import genDiff from '../src/diff-gen.js';
 
-const path1 = '__fixtures__/file1.json';
-const path2 = '__fixtures__/file2.json';
+test('empty files', () => {
+  const path1 = 'file3.json';
+  const path2 = 'file4.json';
 
-test('paths', () => {
+  expect(genDiff(path1, path2)).toEqual('{\n}');
+});
+
+test('two files', () => {
+  const path1 = 'file1.json';
+  const path2 = 'file2.json';
+
   expect(genDiff(path1, path2)).toEqual(`{
    - follow: false
      host: hexlet.io
