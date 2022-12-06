@@ -9,8 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: lint
-        run: make lint
-      
-      - name: test
-        run: make test
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-vesion: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: make install 
+      - run: make lint
+      - run: make test
