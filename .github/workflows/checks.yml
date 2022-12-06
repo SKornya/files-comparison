@@ -1,0 +1,15 @@
+name: lint and tests check
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: lint
+        runs: make lint
+      
+      - name: test
+        runs: make test
