@@ -1,6 +1,7 @@
 name: lint and tests check
 
-on: push
+on:
+  - push
 
 jobs:
   build:
