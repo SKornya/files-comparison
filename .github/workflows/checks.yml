@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: lint
-        runs: make lint
+        run: make lint
       
       - name: test
-        runs: make test
+        run: make test
