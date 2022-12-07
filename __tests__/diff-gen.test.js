@@ -1,17 +1,18 @@
 import genDiff from '../src/diff-gen.js';
 
-test('empty files', () => {
-  const path1 = 'file3.json';
-  const path2 = 'file4.json';
+const file1 = 'file1.json';
+const file2 = 'file2.json';
+const file3 = 'file3.json';
+const file4 = 'file4.json';
+const file5 = 'file1.yml';
+const file6 = 'file2.yaml';
 
-  expect(genDiff(path1, path2)).toEqual('{\n}');
+test('empty files', () => {
+  expect(genDiff(file3, file4)).toEqual('{\n}');
 });
 
 test('flat json files', () => {
-  const path1 = 'file1.json';
-  const path2 = 'file2.json';
-
-  expect(genDiff(path1, path2)).toEqual(`{
+  expect(genDiff(file1, file2)).toEqual(`{
    - follow: false
      host: hexlet.io
    - proxy: 123.234.53.22
@@ -22,10 +23,7 @@ test('flat json files', () => {
 });
 
 test('flat yml files', () => {
-  const path1 = 'file1.yml';
-  const path2 = 'file2.yaml';
-
-  expect(genDiff(path1, path2)).toEqual(`{
+  expect(genDiff(file5, file6)).toEqual(`{
    - follow: false
      host: hexlet.io
    - proxy: 123.234.53.22
@@ -36,10 +34,7 @@ test('flat yml files', () => {
 });
 
 test('def exts files', () => {
-  const path1 = 'file1.json';
-  const path2 = 'file2.yaml';
-
-  expect(genDiff(path1, path2)).toEqual(`{
+  expect(genDiff(file1, file6)).toEqual(`{
    - follow: false
      host: hexlet.io
    - proxy: 123.234.53.22
