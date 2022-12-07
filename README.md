@@ -5,9 +5,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/b0d4ed0dfd572b81be2c/maintainability)](https://codeclimate.com/github/SKornya/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dfc50c2d88cd46d069c1/test_coverage)](https://codeclimate.com/github/SKornya/frontend-project-46/test_coverage)
 
-### Help option and flat files compare asciinema
+### Help option asciinema
 
-<a href="https://asciinema.org/a/KP8Ss3ngjSoODtSIk7RTdLuHx" target="_blank"><img src="https://asciinema.org/a/KP8Ss3ngjSoODtSIk7RTdLuHx.svg" /></a>
+[![asciicast](https://asciinema.org/a/pWUEDOkcC3R99jMN2oEbcYjy6.svg)](https://asciinema.org/a/pWUEDOkcC3R99jMN2oEbcYjy6)
 
 ### Flat files with dif extensions compare asciinema
 
