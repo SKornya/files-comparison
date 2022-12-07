@@ -1,4 +1,4 @@
-import genDiff from '../src/diff-gen.js';
+import genDiff from '../src/index.js';
 
 const file1 = 'file1.json';
 const file2 = 'file2.json';
