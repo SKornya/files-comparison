@@ -26,12 +26,12 @@ test('flat yml files', () => {
   const path2 = 'file2.yaml';
 
   expect(genDiff(path1, path2)).toEqual(`{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
+   - follow: false
+     host: hexlet.io
+   - proxy: 123.234.53.22
+   - timeout: 50
+   + timeout: 20
+   + verbose: true
 }`);
 });
 
@@ -40,11 +40,11 @@ test('def exts files', () => {
   const path2 = 'file2.yaml';
 
   expect(genDiff(path1, path2)).toEqual(`{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
+   - follow: false
+     host: hexlet.io
+   - proxy: 123.234.53.22
+   - timeout: 50
+   + timeout: 20
+   + verbose: true
 }`);
 });
