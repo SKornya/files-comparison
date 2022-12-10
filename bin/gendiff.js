@@ -9,7 +9,7 @@ program
   .helpOption('-h, --help', 'display help for command')
   .option('-f, --format <type>', 'output format')
   .arguments('<filepath1> <filepath2>')
-  .action((path1, path2) => console.log(genDiff(path1, path2)));
+  .action((file1Name, file2Name) => console.log(genDiff(file1Name, file2Name)));
 
 program.parse();
 
