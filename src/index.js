@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import getParsedFile from './parsers.js';
-import getStylishDiff from './stylish.js';
+import getStylishDiff from './formatters/stylish.js';
 // import getPlainDiff from './plain.js';
 
 const getUnionKeys = (file1, file2) => {
