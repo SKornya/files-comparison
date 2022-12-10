@@ -12,3 +12,7 @@
 ### Flat files with dif extensions compare asciinema
 
 [![asciicast](https://asciinema.org/a/543279.svg)](https://asciinema.org/a/543279)
+
+### Asciinema for mixed files
+
+[![asciicast](https://asciinema.org/a/MftGjudeFDhY1N35BSHrAjPYu.svg)](https://asciinema.org/a/MftGjudeFDhY1N35BSHrAjPYu)
