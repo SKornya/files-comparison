@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import getParsedFile from './parsers.js';
 
+const isObjectAndNotArray = (file, key) => typeof file[key] === 'object' && !Array.isArray(file[key]);
+
 const getDiffObj = (file1, file2) => {
   const parsedFiles = [file1, file2];
 
@@ -10,7 +12,7 @@ const getDiffObj = (file1, file2) => {
   const unionKeys = _.sortBy(_.union(keys1, keys2));
   return unionKeys
     .reduce((acc, key) => {
-      if (typeof file1[key] === 'object' && typeof file2[key] === 'object') {
+      if (isObjectAndNotArray(file1, key) && isObjectAndNotArray(file2, key)) {
         return { ...acc, [key]: getDiffObj(file1[key], file2[key]) };
       }
       if (Object.hasOwn(file1, key) && Object.hasOwn(file2, key)) {
