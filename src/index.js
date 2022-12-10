@@ -8,7 +8,6 @@ const getDiffObj = (file1, file2) => {
   const [keys1, keys2] = keys;
 
   const unionKeys = _.sortBy(_.union(keys1, keys2));
-  console.log(unionKeys);
   return unionKeys
     .reduce((acc, key) => {
       if (typeof file1[key] === 'object' && typeof file2[key] === 'object') {
