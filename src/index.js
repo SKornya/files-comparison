@@ -1,35 +1,33 @@
 import _ from 'lodash';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
-import fileParse from './parsers.js';
+import getParsedFile from './parsers.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const getDiffObj = (file1, file2) => {
+  const parsedFiles = [file1, file2];
 
-const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-
-export default (path1, path2) => {
-  const parsedFiles = [getFixturePath(path1), getFixturePath(path2)]
-    .map((filePath) => fileParse(filePath));
-
-  const [file1, file2] = parsedFiles;
   const keys = parsedFiles.map((file) => Object.keys(file));
   const [keys1, keys2] = keys;
 
-  const intersectKeys = _.intersection(keys1, keys2);
   const unionKeys = _.sortBy(_.union(keys1, keys2));
+  console.log(unionKeys);
+  return unionKeys
+    .reduce((acc, key) => {
+      if (typeof file1[key] === 'object' && typeof file2[key] === 'object') {
+        return { ...acc, [key]: getDiffObj(file1[key], file2[key]) };
+      }
+      if (Object.hasOwn(file1, key) && Object.hasOwn(file2, key)) {
+        return file1[key] === file2[key]
+          ? { ...acc, [`  ${key}`]: file1[key] } : { ...acc, [`- ${key}`]: file1[key], [`+ ${key}`]: file2[key] };
+      }
+      return Object.hasOwn(file1, key)
+        ? { ...acc, [`- ${key}`]: file1[key] } : { ...acc, [`+ ${key}`]: file2[key] };
+    }, {});
+};
 
-  const getDiff = unionKeys.reduce((acc, key) => {
-    if (intersectKeys.includes(key)) {
-      return file1[key] === file2[key]
-        ? `${acc}     ${key}: ${file1[key]}\n`
-        : `${acc}   - ${key}: ${file1[key]}\n   + ${key}: ${file2[key]}\n`;
-    }
-    return keys1.includes(key)
-      ? `${acc}   - ${key}: ${file1[key]}\n`
-      : `${acc}   + ${key}: ${file2[key]}\n`;
-  }, '');
+export default (file1Name, file2Name) => {
+  const file1 = getParsedFile(file1Name);
+  const file2 = getParsedFile(file2Name);
 
-  const diff = `{\n${getDiff}}`;
+  const diffQuoted = JSON.stringify(getDiffObj(file1, file2), null, '  ');
+  const diff = diffQuoted.replace(/"|,/g, '');
   return diff;
 };
