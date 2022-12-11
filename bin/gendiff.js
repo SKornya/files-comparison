@@ -9,9 +9,9 @@ program
   .helpOption('-h, --help', 'display help for command')
   .option('-f, --format <type>', 'output format (default: stylish)', 'stylish')
   .arguments('<filepath1> <filepath2>')
-  .action((file1Name, file2Name) => console.log(genDiff(
-    file1Name,
-    file2Name,
+  .action((file1Path, file2Path) => console.log(genDiff(
+    file1Path,
+    file2Path,
     program.opts()
       .format,
   )));
