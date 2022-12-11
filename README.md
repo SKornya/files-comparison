@@ -16,3 +16,7 @@
 ### Asciinema for mixed files
 
 [![asciicast](https://asciinema.org/a/MftGjudeFDhY1N35BSHrAjPYu.svg)](https://asciinema.org/a/MftGjudeFDhY1N35BSHrAjPYu)
+
+### Asciinema for plain formater
+
+[![asciicast](https://asciinema.org/a/wZHgq0DFOvvi1WYze9mryFG1n.svg)](https://asciinema.org/a/wZHgq0DFOvvi1WYze9mryFG1n)
