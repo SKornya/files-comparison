@@ -1,6 +1,5 @@
 import fs from 'fs';
 import yaml from 'yaml-js';
-
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 
