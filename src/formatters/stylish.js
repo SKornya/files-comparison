@@ -20,20 +20,19 @@ const stylish = (diff) => {
   const formater = (data, depth = 0) => {
     const formatted = data
       .map((key) => {
-        if (key.type === 'PARENT') {
-          return `${indent(depth)}${blankMark}${key.name}: ${formater(key.children, depth + 1)}`;
+        switch (key.type) {
+          case 'PARENT':
+            return `${indent(depth)}${blankMark}${key.name}: ${formater(key.children, depth + 1)}`;
+          case 'ADDED':
+            return `${indent(depth)}${plusMark}${key.name}: ${getValue(key.value, depth)}`;
+          case 'DELETED':
+            return `${indent(depth)}${minusMark}${key.name}: ${getValue(key.value, depth)}`;
+          case 'UNCHANGED':
+            return `${indent(depth)}${blankMark}${key.name}: ${getValue(key.value, depth)}`;
+          default:
+            return `${indent(depth)}${minusMark}${key.name}: ${getValue(key.value[0], depth)}\n${indent(depth)}${plusMark}${key.name}: ${getValue(key.value[1], depth)}`;
         }
-        if (key.type === 'ADDED') {
-          return `${indent(depth)}${plusMark}${key.name}: ${getValue(key.value, depth)}`;
-        }
-        if (key.type === 'DELETED') {
-          return `${indent(depth)}${minusMark}${key.name}: ${getValue(key.value, depth)}`;
-        }
-        if (key.type === 'UNCHANGED') {
-          return `${indent(depth)}${blankMark}${key.name}: ${getValue(key.value, depth)}`;
-        }
-        return `${indent(depth)}${minusMark}${key.name}: ${getValue(key.value[0], depth)}\n${indent(depth)}${plusMark}${key.name}: ${getValue(key.value[1], depth)}`;
-      }, {});
+      });
 
     return `{\n${formatted.join('\n')}\n${indent(depth)}}`;
   };
