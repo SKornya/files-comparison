@@ -17,7 +17,7 @@ const stylishFormater = (diff) => diff
 
 export default (diff) => {
   const diffObj = stylishFormater(diff);
-  const diffQuoted = JSON.stringify(diffObj, null, '  ');
+  const diffQuoted = JSON.stringify(diffObj, null, '    ');
 
   return diffQuoted.replace(/"|,/g, '');
 };
