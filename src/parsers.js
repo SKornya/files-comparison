@@ -4,13 +4,15 @@ import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import _ from 'lodash';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
-export const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', fileName);
+// const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', fileName);
+const getAbsolutePath = (fileName) => path.resolve(process.cwd(), fileName);
 
 const getFileContent = (fileName) => {
-  const filePath = getFixturePath(fileName);
+  // const filePath = getFixturePath(fileName);
+  const filePath = getAbsolutePath(fileName);
 
   const ext = path.extname(filePath);
   switch (ext) {
