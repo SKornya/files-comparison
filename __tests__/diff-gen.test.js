@@ -1,13 +1,14 @@
 import { test, expect } from '@jest/globals';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
+// import { fileURLToPath } from 'url';
+// import path, { dirname } from 'path';
 import genDiff from '../src/index.js';
+import { getFixturePath } from '../src/parsers.js';
 
-const filePath = fileURLToPath(import.meta.url);
-const dirPath = dirname(filePath);
+// const filePath = fileURLToPath(import.meta.url);
+// const dirPath = dirname(filePath);
 
-const getFixturePath = (fileName) => path.join(dirPath, '..', '__fixtures__', fileName);
+// const getFixturePath = (fileName) => path.join(dirPath, '..', '__fixtures__', fileName);
 const fileRead = (file) => fs.readFileSync(getFixturePath(file), 'utf-8');
 
 const expectedStylish = fileRead('expectedStylish.txt');
