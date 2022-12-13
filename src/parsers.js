@@ -1,18 +1,11 @@
 import fs from 'fs';
 import yaml from 'yaml-js';
 import path from 'path';
-// import { fileURLToPath } from 'url';
-// import path, { dirname } from 'path';
 import _ from 'lodash';
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-
-// const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', fileName);
 const getAbsolutePath = (fileName) => path.resolve(process.cwd(), fileName);
 
 const getFileContent = (fileName) => {
-  // const filePath = getFixturePath(fileName);
   const filePath = getAbsolutePath(fileName);
 
   const ext = path.extname(filePath);
@@ -39,42 +32,27 @@ const getUnionKeys = (file1, file2) => {
 
 const getFile = (filePath) => getFileContent(filePath);
 
-const getDiff = (file1, file2, filesKeys) => filesKeys
-  .map((key) => {
+const getDiff = (file1, file2) => {
+  const keys1 = Object.keys(file1);
+  const keys2 = Object.keys(file2);
+  const keys = _.sortBy(_.union(keys1, keys2));
+
+  return keys.map((key) => {
     if (_.isObject(file1[key]) && _.isObject(file2[key])) {
-      return {
-        name: key,
-        type: 'PARENT',
-        children: getDiff(file1[key], file2[key], getUnionKeys(file1[key], file2[key])),
-      };
+      return { name: key, type: 'PARENT', children: getDiff(file1[key], file2[key]) };
     }
     if (!Object.hasOwn(file1, key)) {
-      return {
-        name: key,
-        type: 'ADDED',
-        value: file2[key],
-      };
+      return { name: key, type: 'ADDED', value: file2[key] };
     }
     if (!Object.hasOwn(file2, key)) {
-      return {
-        name: key,
-        type: 'DELETED',
-        value: file1[key],
-      };
+      return { name: key, type: 'DELETED', value: file1[key] };
     }
     if (file1[key] === file2[key]) {
-      return {
-        name: key,
-        type: 'UNCHANGED',
-        value: file1[key],
-      };
+      return { name: key, type: 'UNCHANGED', value: file1[key] };
     }
-    return {
-      name: key,
-      type: 'CHANGED',
-      value: [file1[key], file2[key]],
-    };
+    return { name: key, type: 'CHANGED', value: [file1[key], file2[key]] };
   });
+};
 
 export default (file1Path, file2Path) => {
   const file1 = getFile(file1Path);
