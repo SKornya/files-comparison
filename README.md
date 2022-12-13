@@ -5,6 +5,26 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/b0d4ed0dfd572b81be2c/maintainability)](https://codeclimate.com/github/SKornya/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dfc50c2d88cd46d069c1/test_coverage)](https://codeclimate.com/github/SKornya/frontend-project-46/test_coverage)
 
+## System requires
+
+- node.js 12 or higher
+- make
+
+## Install
+
+```bash
+make install
+```
+
+## Run project
+
+```bash
+gendiff -h # to read help
+gendiff <path1> <path2> [--format <format>]
+```
+
+## Asciinemas
+
 ### Help option asciinema
 
 [![asciicast](https://asciinema.org/a/pWUEDOkcC3R99jMN2oEbcYjy6.svg)](https://asciinema.org/a/pWUEDOkcC3R99jMN2oEbcYjy6)
@@ -20,3 +40,7 @@
 ### Asciinema for plain formater
 
 [![asciicast](https://asciinema.org/a/wZHgq0DFOvvi1WYze9mryFG1n.svg)](https://asciinema.org/a/wZHgq0DFOvvi1WYze9mryFG1n)
+
+### Asciinema for JSON formater
+
+[![asciicast](https://asciinema.org/a/RiBj9kHIpxqmZKEz25oqezJvB.svg)](https://asciinema.org/a/RiBj9kHIpxqmZKEz25oqezJvB)
