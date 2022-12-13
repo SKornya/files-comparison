@@ -2,10 +2,10 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "frontend project from Hexlet #2",
-  "main": "bin/gendiff.js",
+  "main": "src/index.js",
   "type": "module",
   "bin": {
-    "gendiff": "src/index.js"
+    "gendiff": "bin/gendiff.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
