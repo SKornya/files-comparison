@@ -9,20 +9,21 @@ const getValue = (value) => {
 
 const plainFormater = (diff, path = '') => diff
   .flatMap((key) => {
-    if (key.type === 'PARENT') {
-      return plainFormater(key.children, `${path}${key.name}.`);
+    switch (key.type) {
+      case 'PARENT':
+        return plainFormater(key.children, `${path}${key.name}.`);
+      case 'ADDED':
+        return `Property '${path}${key.name}' was added with value: ${getValue(key.value)}`;
+      case 'DELETED':
+        return `Property '${path}${key.name}' was removed`;
+      case 'CHANGED':
+        return `Property '${path}${key.name}' was updated. From ${getValue(key.value[0])} to ${getValue(key.value[1])}`;
+      case 'UNCHANGED':
+        return '';
+      default:
+        throw new Error('unknown key type');
     }
-    if (key.type === 'ADDED') {
-      return `Property '${path}${key.name}' was added with value: ${getValue(key.value)}`;
-    }
-    if (key.type === 'DELETED') {
-      return `Property '${path}${key.name}' was removed`;
-    }
-    if (key.type === 'CHANGED') {
-      return `Property '${path}${key.name}' was updated. From ${getValue(key.value[0])} to ${getValue(key.value[1])}`;
-    }
-    return '';
-  }, {});
+  });
 
 export default (diff) => {
   const diffArr = plainFormater(diff);
