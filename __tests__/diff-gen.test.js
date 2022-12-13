@@ -26,7 +26,7 @@ test.each([
   ['__fixtures__/file1.json', '__fixtures__/file2.yaml', 'stylish', expectedStylish],
   ['__fixtures__/file1.json', '__fixtures__/file2.yaml', 'plain', expectedPlain],
   ['__fixtures__/file1.json', '__fixtures__/file2.yaml', 'json', expectedJSON],
-])('test %s %s %s', (file1Path, file2Path, format, expFile) => {
+])('%s/%s/%s', (file1Path, file2Path, format, expFile) => {
   const input = genDiff(file1Path, file2Path, format);
   const output = expFile;
 
