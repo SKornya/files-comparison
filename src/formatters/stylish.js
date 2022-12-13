@@ -1,23 +1,32 @@
-const stylishFormater = (diff) => diff
-  .reduce((acc, key) => {
-    if (key.type === 'PARENT') {
-      return { ...acc, [`  ${key.name}`]: stylishFormater(key.children) };
-    }
-    if (key.type === 'ADDED') {
-      return { ...acc, [`+ ${key.name}`]: key.value };
-    }
-    if (key.type === 'DELETED') {
-      return { ...acc, [`- ${key.name}`]: key.value };
-    }
-    if (key.type === 'UNCHANGED') {
-      return { ...acc, [`  ${key.name}`]: key.value };
-    }
-    return { ...acc, [`- ${key.name}`]: key.value[0], [`+ ${key.name}`]: key.value[1] };
-  }, {});
+const indent = (depth) => '    '.repeat(depth);
 
-export default (diff) => {
-  const diffObj = stylishFormater(diff);
-  const diffQuoted = JSON.stringify(diffObj, null, '  ');
+const plusMark = '  + ';
+const minusMark = '  - ';
+const blankMark = '    ';
 
-  return diffQuoted.replace(/"|,/g, '');
+const stylish = (diff) => {
+  const formater = (data, depth = 0) => {
+    const formatted = data
+      .map((key) => {
+        if (key.type === 'PARENT') {
+          return `${indent(depth)}${blankMark}${key.name}: ${formater(key.children, depth + 1)}`;
+        }
+        if (key.type === 'ADDED') {
+          return `${indent(depth)}${plusMark}${key.name}: ${key.value}`;
+        }
+        if (key.type === 'DELETED') {
+          return `${indent(depth)}${minusMark}${key.name}: ${key.value}`;
+        }
+        if (key.type === 'UNCHANGED') {
+          return `${indent(depth)}${blankMark}${key.name}: ${key.value}`;
+        }
+        return `${indent(depth)}${minusMark}${key.name}: ${key.value[0]}\n${indent(depth)}${plusMark}${key.name}: ${key.value[1]}`;
+      }, {});
+
+    return `{\n${formatted.join('\n')}\n${indent(depth)}}`;
+  };
+
+  return formater(diff);
 };
+
+export default stylish;
