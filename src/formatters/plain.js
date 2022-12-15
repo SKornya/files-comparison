@@ -7,11 +7,11 @@ const getValue = (value) => {
   return typeof value === 'string' ? `'${value}'` : value;
 };
 
-const plainFormater = (diff, path = '') => diff
+const getFormatted = (diff, path = '') => diff
   .flatMap((key) => {
     switch (key.type) {
       case 'PARENT':
-        return plainFormater(key.children, `${path}${key.name}.`);
+        return getFormatted(key.children, `${path}${key.name}.`);
       case 'ADDED':
         return `Property '${path}${key.name}' was added with value: ${getValue(key.value)}`;
       case 'DELETED':
@@ -26,7 +26,7 @@ const plainFormater = (diff, path = '') => diff
   });
 
 export default (diff) => {
-  const diffArr = plainFormater(diff);
+  const diffArr = getFormatted(diff);
 
   return _.compact(diffArr).join('\n');
 };

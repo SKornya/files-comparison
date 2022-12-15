@@ -2,19 +2,22 @@ import _ from 'lodash';
 
 const indent = (depth) => '    '.repeat(depth);
 
+const plusMark = '  + ';
+const minusMark = '  - ';
+const blankMark = '    ';
+
 const getValue = (value, depth) => {
   if (_.isObject(value)) {
     const keys = Object.keys(value);
     const formattedKeys = keys
-      .map((key) => `${indent(depth + 2)}${key}: ${getValue(value[key], depth + 1)}`);
+      .map((key) => {
+        const keyValue = getValue(value[key], depth + 1);
+        return `${indent(depth + 2)}${key}: ${keyValue}`;
+      });
     return `{\n${formattedKeys.join('\n')}\n${indent(depth + 1)}}`;
   }
   return value;
 };
-
-const plusMark = '  + ';
-const minusMark = '  - ';
-const blankMark = '    ';
 
 const stylish = (diff) => {
   const formater = (data, depth = 0) => {
