@@ -1,36 +1,4 @@
-import fs from 'fs';
-import yaml from 'yaml-js';
-import path from 'path';
 import _ from 'lodash';
-
-const getAbsolutePath = (fileName) => path.resolve(process.cwd(), fileName);
-
-const getFileContent = (fileName) => {
-  const filePath = getAbsolutePath(fileName);
-
-  const ext = path.extname(filePath);
-  switch (ext) {
-    case '.json':
-      return JSON.parse(fs.readFileSync(filePath));
-    case '.yml':
-      return yaml.load(fs.readFileSync(filePath));
-    case '.yaml':
-      return yaml.load(fs.readFileSync(filePath));
-    default:
-      throw new Error('unknow file format');
-  }
-};
-
-const getUnionKeys = (file1, file2) => {
-  const files = [file1, file2];
-  const keys = files.map((file) => Object.keys(file));
-  const [keys1, keys2] = keys;
-
-  const unionKeys = _.sortBy(_.union(keys1, keys2));
-  return unionKeys;
-};
-
-const getFile = (filePath) => getFileContent(filePath);
 
 const getDiff = (file1, file2) => {
   const keys1 = Object.keys(file1);
@@ -54,10 +22,4 @@ const getDiff = (file1, file2) => {
   });
 };
 
-export default (file1Path, file2Path) => {
-  const file1 = getFile(file1Path);
-  const file2 = getFile(file2Path);
-  const keys = getUnionKeys(file1, file2);
-
-  return getDiff(file1, file2, keys);
-};
+export default (file1Data, file2Data) => getDiff(file1Data, file2Data);
