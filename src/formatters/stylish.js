@@ -22,17 +22,22 @@ const getValue = (value, depth) => {
 const stylish = (diff) => {
   const formater = (data, depth = 0) => {
     const formatted = data.map((key) => {
+      const marks = {
+        PARENT: `${indent(depth)}${blankMark}${key.name}`,
+        ADDED: `${indent(depth)}${plusMark}${key.name}`,
+        DELETED: `${indent(depth)}${minusMark}${key.name}`,
+        UNCHANGED: `${indent(depth)}${blankMark}${key.name}`,
+        CHANGED: `${indent(depth)}${minusMark}${key.name}`,
+      };
       switch (key.type) {
         case 'PARENT':
-          return `${indent(depth)}${blankMark}${key.name}: ${formater(key.children, depth + 1)}`;
+          return `${marks[key.type]}: ${formater(key.children, depth + 1)}`;
         case 'ADDED':
-          return `${indent(depth)}${plusMark}${key.name}: ${getValue(key.value, depth)}`;
         case 'DELETED':
-          return `${indent(depth)}${minusMark}${key.name}: ${getValue(key.value, depth)}`;
         case 'UNCHANGED':
-          return `${indent(depth)}${blankMark}${key.name}: ${getValue(key.value, depth)}`;
+          return `${marks[key.type]}: ${getValue(key.value, depth)}`;
         default:
-          return `${indent(depth)}${minusMark}${key.name}: ${getValue(key.value[0], depth)}\n${indent(depth)}${plusMark}${key.name}: ${getValue(key.value[1], depth)}`;
+          return `${marks.DELETED}: ${getValue(key.value[0], depth)}\n${marks.ADDED}: ${getValue(key.value[1], depth)}`;
       }
     });
 
