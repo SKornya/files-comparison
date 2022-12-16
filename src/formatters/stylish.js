@@ -19,9 +19,9 @@ const getValue = (value, depth) => {
   return value;
 };
 
-const stylish = (diff) => {
-  const formater = (data, depth = 0) => {
-    const formatted = data.map((key) => {
+const getStylish = (diff) => {
+  const format = (data, depth = 0) => {
+    const formattedData = data.map((key) => {
       const marks = {
         PARENT: `${indent(depth)}${blankMark}${key.name}`,
         ADDED: `${indent(depth)}${plusMark}${key.name}`,
@@ -31,7 +31,7 @@ const stylish = (diff) => {
       };
       switch (key.type) {
         case 'PARENT':
-          return `${marks[key.type]}: ${formater(key.children, depth + 1)}`;
+          return `${marks[key.type]}: ${format(key.children, depth + 1)}`;
         case 'ADDED':
         case 'DELETED':
         case 'UNCHANGED':
@@ -41,10 +41,10 @@ const stylish = (diff) => {
       }
     });
 
-    return `{\n${formatted.join('\n')}\n${indent(depth)}}`;
+    return `{\n${formattedData.join('\n')}\n${indent(depth)}}`;
   };
 
-  return formater(diff);
+  return format(diff);
 };
 
-export default stylish;
+export default getStylish;
