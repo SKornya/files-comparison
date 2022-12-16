@@ -9,15 +9,16 @@ const getValue = (value) => {
 
 const getFormatted = (diff, path = '') => diff
   .flatMap((key) => {
+    const currentPath = `${path}${key.name}`;
     switch (key.type) {
       case 'PARENT':
-        return getFormatted(key.children, `${path}${key.name}.`);
+        return getFormatted(key.children, `${currentPath}.`);
       case 'ADDED':
-        return `Property '${path}${key.name}' was added with value: ${getValue(key.value)}`;
+        return `Property '${currentPath}' was added with value: ${getValue(key.value)}`;
       case 'DELETED':
-        return `Property '${path}${key.name}' was removed`;
+        return `Property '${currentPath}' was removed`;
       case 'CHANGED':
-        return `Property '${path}${key.name}' was updated. From ${getValue(key.value[0])} to ${getValue(key.value[1])}`;
+        return `Property '${currentPath}' was updated. From ${getValue(key.value[0])} to ${getValue(key.value[1])}`;
       case 'UNCHANGED':
         return '';
       default:
