@@ -25,7 +25,7 @@ const getPropertyDifference = (key, path) => {
 const getFormatted = (diff, path = '') => diff
   .flatMap((key) => {
     const currentPath = `${path}${key.name}`;
-    if (key.type === 'PARENT') {
+    if (key.type === 'NESTED') {
       return getFormatted(key.children, `${currentPath}.`);
     }
     return getPropertyDifference(key, currentPath);

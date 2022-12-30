@@ -7,7 +7,7 @@ const getDiff = (file1, file2) => {
 
   return keys.map((key) => {
     if (_.isObject(file1[key]) && _.isObject(file2[key])) {
-      return { name: key, type: 'PARENT', children: getDiff(file1[key], file2[key]) };
+      return { name: key, type: 'NESTED', children: getDiff(file1[key], file2[key]) };
     }
     if (!Object.hasOwn(file1, key)) {
       return { name: key, type: 'ADDED', value: file2[key] };

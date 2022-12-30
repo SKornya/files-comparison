@@ -23,14 +23,14 @@ const getStylish = (diff) => {
   const format = (data, depth = 0) => {
     const formattedData = data.map((key) => {
       const marks = {
-        PARENT: `${indent(depth)}${blankMark}${key.name}`,
+        NESTED: `${indent(depth)}${blankMark}${key.name}`,
         ADDED: `${indent(depth)}${plusMark}${key.name}`,
         DELETED: `${indent(depth)}${minusMark}${key.name}`,
         UNCHANGED: `${indent(depth)}${blankMark}${key.name}`,
         CHANGED: `${indent(depth)}${minusMark}${key.name}`,
       };
       switch (key.type) {
-        case 'PARENT':
+        case 'NESTED':
           return `${marks[key.type]}: ${format(key.children, depth + 1)}`;
         case 'ADDED':
         case 'DELETED':
