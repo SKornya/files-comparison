@@ -36,8 +36,10 @@ const getStylish = (diff) => {
         case 'DELETED':
         case 'UNCHANGED':
           return `${marks[key.type]}: ${getValue(key.value, depth)}`;
-        default:
+        case 'CHANGED':
           return `${marks.DELETED}: ${getValue(key.value[0], depth)}\n${marks.ADDED}: ${getValue(key.value[1], depth)}`;
+        default:
+          return new Error('nnknown node type');
       }
     });
 
